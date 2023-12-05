@@ -37,7 +37,7 @@ public class TestController {
     return "Admin Board.";
   }
 
-  @GetMapping("/decrypt/{id}")
+  @GetMapping("/decryptssn/{id}")
   @PreAuthorize("hasRole('ADMIN')")
   public ResponseEntity<String> getSSN(@PathVariable Long id) throws Exception {
     return ResponseEntity.ok("Last Four Social: " + userDetailsService.loadUserLastFourSSN(id));
