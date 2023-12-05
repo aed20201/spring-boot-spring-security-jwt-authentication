@@ -9,6 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bezkoder.springjwt.models.User;
 import com.bezkoder.springjwt.repository.UserRepository;
+import org.springframework.util.StringUtils;
+
+import java.util.Optional;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -22,6 +25,20 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
 
     return UserDetailsImpl.build(user);
+  }
+
+  @Transactional
+  public String loadUserLastFourSSN(Long id) throws Exception {
+    User user = userRepository.findById(id)
+            .orElseThrow(() -> new UsernameNotFoundException("User Not Found with id: " + id));
+    String encodedSSN = user.getSsn();
+    if(encodedSSN != null){
+      String ssn = EncryptionUtil.decryptSSN(encodedSSN);
+      String lastFour = "***-**-" + ssn.substring(ssn.length() - 4);
+      return lastFour;
+    }
+
+    return null;
   }
 
 }
