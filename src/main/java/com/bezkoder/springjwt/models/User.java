@@ -3,10 +3,12 @@ package com.bezkoder.springjwt.models;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.bezkoder.springjwt.security.services.EncryptionUtil;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+
 
 @Entity
 @Table(name = "users", 
@@ -31,6 +33,9 @@ public class User {
   @NotBlank
   @Size(max = 120)
   private String password;
+
+  @NotBlank
+  private String ssn;
 
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(  name = "user_roles", 
@@ -85,5 +90,13 @@ public class User {
 
   public void setRoles(Set<Role> roles) {
     this.roles = roles;
+  }
+
+  public String getSsn() {
+    return ssn;
+  }
+
+  public void setSsn(String ssn) throws Exception {
+    this.ssn = (ssn);
   }
 }

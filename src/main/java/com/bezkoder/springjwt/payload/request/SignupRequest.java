@@ -2,6 +2,7 @@ package com.bezkoder.springjwt.payload.request;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 
 public class SignupRequest {
@@ -19,6 +20,9 @@ public class SignupRequest {
   @NotBlank
   @Size(min = 6, max = 40)
   private String password;
+
+  @NotBlank
+  private String ssn;
 
   public String getUsername() {
     return username;
@@ -51,4 +55,15 @@ public class SignupRequest {
   public void setRole(Set<String> role) {
     this.role = role;
   }
+
+
+  public String getSsn() {
+    return ssn;
+  }
+
+  public void setSsn(String ssn) {
+    this.ssn = ssn;
+  }
+
+
 }
